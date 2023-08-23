@@ -1,0 +1,11 @@
+.addContact-form {
+  padding: 1em;
+  width: 400px;
+  /* background-color: red; */
+}
+
+.input-wrapper {
+  margin-top: 0.5rem;
+  display: grid;
+  /* grid-template-columns: .7fr 1fr; */
+}

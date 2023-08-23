@@ -1,6 +1,7 @@
+import { useState } from "react";
 import "./App.css";
 import SingleContact from "./components/SingleContact";
-import AddContact from "./components/AddContact";
+import Add_EditContact from "./components/Add_EditContact";
 
 import { useSelector } from "react-redux";
 
@@ -8,11 +9,25 @@ import { tableHead } from "./sampleData";
 
 function App() {
   const { contactList } = useSelector((state) => state.contact);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const openModalAddContact = () => {
+    setIsOpen(true);
+  };
   return (
     <div className="app">
-      <AddContact />
-      <button className="add-contact-btn">Add Contact</button>
+      <Add_EditContact
+        state="add"
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        title="Add Contact"
+      />
+      <button
+        className="add-contact-btn"
+        onClick={openModalAddContact}
+      >
+        Add Contact
+      </button>
       <table className="contact-List">
         <thead className="table-head">
           <tr>

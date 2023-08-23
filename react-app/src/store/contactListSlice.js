@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   contactList: [
     {
+      id: 1,
       firstName: "John",
       middleName: "Doe",
       lastName: "Smith",
@@ -10,6 +11,7 @@ const initialState = {
       emailAddress: "john@example.com",
     },
     {
+      id: 2,
       firstName: "Jane",
       middleName: "Mary",
       lastName: "Johnson",
@@ -17,6 +19,7 @@ const initialState = {
       emailAddress: "jane@example.com",
     },
     {
+      id: 3,
       firstName: "Michael",
       middleName: "Robert",
       lastName: "Williams",
@@ -24,6 +27,7 @@ const initialState = {
       emailAddress: "michael@example.com",
     },
     {
+      id: 4,
       firstName: "Emily",
       middleName: "Anne",
       lastName: "Davis",
@@ -31,6 +35,7 @@ const initialState = {
       emailAddress: "emily@example.com",
     },
     {
+      id: 5,
       firstName: "William",
       middleName: "Henry",
       lastName: "Miller",
@@ -49,9 +54,21 @@ export const contactListSlice = createSlice({
       console.log(newContact);
       state.contactList = [...state.contactList, newContact];
     },
+
+    editContact: (state, action) => {
+      const id = action.payload.id;
+      const updatedContact = action.payload;
+      console.log(id);
+      return {
+        ...state,
+        contactList: state.contactList.map((contact) =>
+          contact.id === id ? { ...contact, ...updatedContact } : contact
+        ),
+      };
+    },
   },
 });
 
-export const { addContact } = contactListSlice.actions;
+export const { addContact, editContact } = contactListSlice.actions;
 
 export default contactListSlice.reducer;
