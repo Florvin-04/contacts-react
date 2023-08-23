@@ -1,0 +1,18 @@
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn {
+  background-color: transparent;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0.3rem;
+}
+
+.delete-btn {
+  background-color: red;
+  border-radius: 0.3rem;
+  border: 1px solid red;
+  color: white;
+}

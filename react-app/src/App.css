@@ -1,0 +1,51 @@
+body {
+  background-color: whitesmoke;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  width: min(1200px, 90%);
+  margin-inline: auto;
+}
+
+.contact-List {
+  margin-top: 1rem;
+  width: 100%;
+  /* text-align: center; */
+
+  background-color: white;
+  box-shadow: 8px 8px 16px #a1a1a1, -8px -8px 16px #ffffff;
+}
+
+.contact-List,
+th,
+tr {
+  border-collapse: collapse;
+}
+
+.table-head {
+  text-align: left;
+  background-color: rgb(184, 184, 184);
+  text-transform: capitalize;
+  font-size: 1.2rem;
+}
+
+.table-head th {
+  padding: 1em;
+}
+
+.table-body td {
+  padding: 0.5em 1em;
+  font-size: 1.1rem;
+}
+
+.add-contact-btn {
+  margin-top: 1rem;
+  background-color: green;
+  border: 1px solid green;
+  border-radius: 0.3rem;
+  color: white;
+}
