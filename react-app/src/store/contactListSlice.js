@@ -43,7 +43,15 @@ const initialState = {
 export const contactListSlice = createSlice({
   name: "contact",
   initialState,
-  reducers: {},
+  reducers: {
+    addContact: (state, action) => {
+      const newContact = action.payload;
+      console.log(newContact);
+      state.contactList = [...state.contactList, newContact];
+    },
+  },
 });
+
+export const { addContact } = contactListSlice.actions;
 
 export default contactListSlice.reducer;

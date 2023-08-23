@@ -1,5 +1,7 @@
 import "./App.css";
 import SingleContact from "./components/SingleContact";
+import AddContact from "./components/AddContact";
+
 import { useSelector } from "react-redux";
 
 import { tableHead } from "./sampleData";
@@ -9,6 +11,7 @@ function App() {
 
   return (
     <div className="app">
+      <AddContact />
       <button className="add-contact-btn">Add Contact</button>
       <table className="contact-List">
         <thead className="table-head">
