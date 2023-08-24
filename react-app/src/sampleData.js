@@ -5,5 +5,3 @@ export const tableHead = [
   { name: "Mobile Number" },
   { name: "Email Address" },
 ];
-
-export const sampleList = [];

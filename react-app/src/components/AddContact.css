@@ -9,3 +9,23 @@
   display: grid;
   /* grid-template-columns: .7fr 1fr; */
 }
+
+.form-footer {
+  margin-top: 1rem;
+  display: flex;
+
+  gap: 1rem;
+
+  justify-content: end;
+}
+
+.submit-form {
+  background-color: green;
+  color: white;
+  border: 1px solid green;
+}
+.cancel-form {
+  background-color: transparent;
+  /* color: white; */
+  border: 1px solid black;
+}

@@ -14,6 +14,7 @@ function App() {
   const openModalAddContact = () => {
     setIsOpen(true);
   };
+
   return (
     <div className="app">
       <Add_EditContact

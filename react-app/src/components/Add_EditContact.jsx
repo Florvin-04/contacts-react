@@ -4,7 +4,7 @@ import "./AddContact.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addContact, editContact } from "../store/contactListSlice";
 
 const inputs = [
@@ -16,35 +16,54 @@ const inputs = [
 ];
 
 function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
+  console.log("asd", editValue?.firstName);
   const dispacth = useDispatch();
   const modalRef = useRef();
 
   // form handler 'formik'
-  const { values, handleSubmit, handleChange } = useFormik({
+  const { values, handleSubmit, handleChange, setValues } = useFormik({
+    // if edit value is true meaning edit button is cliked then the field are automatically field
     initialValues: {
-      firstName: editValue?.firstName || "",
-      middleName: editValue?.middleName || "",
-      lastName: editValue?.lastName || "",
-      emailAddress: editValue?.emailAddress || "",
-      mobileNumber: editValue?.mobileNumber || "",
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      emailAddress: "",
+      mobileNumber: "",
     },
     onSubmit: (values, actions) => {
-      //   event.preventDefault();
-      //   console.log(values);
+      // if add contact button is clicked add new value
 
       if (state === "add") {
-        dispacth(addContact(values));
+        // I use date.now for the Id so that it could be unique because it involves milliseconds
+        dispacth(addContact({ ...values, id: Date.now() }));
       }
 
+      // if edit button is clicked edit the specified contact
       if (state === "edit") {
         dispacth(editContact({ ...values, id: editValue?.id }));
       }
 
+      // reset the form fields
       actions.resetForm();
-      console.log(isOpen);
+
+      //close the form modal
       setIsOpen(false);
     },
   });
+
+
+// set the value of field if edit button in 
+  useEffect(() => {
+    if (editValue) {
+      setValues({
+        firstName: editValue.firstName || "",
+        middleName: editValue.middleName || "",
+        lastName: editValue.lastName || "",
+        emailAddress: editValue.emailAddress || "",
+        mobileNumber: editValue.mobileNumber || "",
+      });
+    }
+  }, [editValue]);
 
   useEffect(() => {
     if (isOpen) {
@@ -79,7 +98,21 @@ function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
             </div>
           );
         })}
-        <button type="submit">Submit</button>
+        <div className="form-footer">
+          <button
+            className="cancel-form"
+            type="button"
+            onClick={() => setIsOpen(false)}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="submit-form"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </dialog>
   );

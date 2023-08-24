@@ -51,24 +51,32 @@ export const contactListSlice = createSlice({
   reducers: {
     addContact: (state, action) => {
       const newContact = action.payload;
-      console.log(newContact);
-      state.contactList = [...state.contactList, newContact];
+
+      return {
+        contactList: [...state.contactList, newContact],
+      };
     },
 
     editContact: (state, action) => {
       const id = action.payload.id;
       const updatedContact = action.payload;
-      console.log(id);
       return {
-        ...state,
         contactList: state.contactList.map((contact) =>
           contact.id === id ? { ...contact, ...updatedContact } : contact
         ),
       };
     },
+
+    deleteContact: (state, action) => {
+      const id = action.payload.id;
+
+      return {
+        contactList: state.contactList.filter((contact) => contact.id !== id),
+      };
+    },
   },
 });
 
-export const { addContact, editContact } = contactListSlice.actions;
+export const { addContact, editContact, deleteContact } = contactListSlice.actions;
 
 export default contactListSlice.reducer;

@@ -2,7 +2,11 @@ import { useState } from "react";
 import "./SingleContact.css";
 import Add_EditContact from "./Add_EditContact";
 
+import { useSelector, useDispatch } from "react-redux";
+import { deleteContact } from "../store/contactListSlice";
+
 function SingleContact({ id, firstName, lastName, emailAddress, middleName, mobileNumber }) {
+  const dispacth = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const editValue = {
@@ -16,6 +20,10 @@ function SingleContact({ id, firstName, lastName, emailAddress, middleName, mobi
 
   const openModalEditForm = () => {
     setIsOpen(true);
+  };
+
+  const handleDeleteContact = () => {
+    dispacth(deleteContact({ id }));
   };
 
   return (
@@ -41,7 +49,12 @@ function SingleContact({ id, firstName, lastName, emailAddress, middleName, mobi
           >
             Edit
           </button>
-          <button className="delete-btn">Delete</button>
+          <button
+            className="delete-btn"
+            onClick={handleDeleteContact}
+          >
+            Delete
+          </button>
         </td>
       </tr>
     </>
