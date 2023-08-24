@@ -15,6 +15,14 @@ const inputs = [
   { type: "text", id: "mobileNumber", name: "mobileNumber", label: "Mobile Number" },
 ];
 
+const initialValues = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  emailAddress: "",
+  mobileNumber: "",
+};
+
 // regex pattern for 11 digits number only
 const mobileNumberCodeRegex = /^\d{11}$/;
 
@@ -34,50 +42,36 @@ function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
   const modalRef = useRef();
 
   // form handler 'formik'
-  const {
-    values,
-    errors,
-    touched,
-    getFieldProps,
-    handleSubmit,
-    handleChange,
-    setValues,
-  } = useFormik({
-    // if edit value is true meaning edit button is cliked then the field are automatically field
-    initialValues: {
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      emailAddress: "",
-      mobileNumber: "",
-    },
-    validationSchema: contactFormSchema,
-    // validateOnMount: true,
-    // validateOnChange: true, // Enable validation while typing
-    // validateOnBlur: true, // Enable validation while typing
+  const { values, errors, touched, getFieldProps, handleSubmit, setFieldError, setValues } =
+    useFormik({
+      initialValues,
+      validationSchema: contactFormSchema,
+      // validateOnMount: true,
+      // validateOnChange: true, // Enable validation while typing
+      // validateOnBlur: true, // Enable validation while typing
 
-    onSubmit: (values, actions) => {
-      // if add contact button is clicked add new value
+      onSubmit: (values, actions) => {
+        // if add contact button is clicked add new value
 
-      if (state === "add") {
-        // I use date.now for the Id so that it could be unique because it involves milliseconds
-        dispacth(addContact({ ...values, id: Date.now() }));
-      }
+        if (state === "add") {
+          // I use date.now for the Id so that it could be unique because it involves milliseconds
+          dispacth(addContact({ ...values, id: Date.now() }));
+        }
 
-      // if edit button is clicked edit the specified contact
-      if (state === "edit") {
-        dispacth(editContact({ ...values, id: editValue?.id }));
-      }
+        // if edit button is clicked edit the specified contact
+        if (state === "edit") {
+          dispacth(editContact({ ...values, id: editValue?.id }));
+        }
 
-      // reset the form fields
-      actions.resetForm();
+        // reset the form fields
+        actions.resetForm();
 
-      //close the form modal
-      setIsOpen(false);
-    },
-  });
+        //close the form modal
+        setIsOpen(false);
+      },
+    });
 
-  // set the value of field if edit button in
+  // if edit value is true meaning edit button is cliked then the field are automatically field
   useEffect(() => {
     if (editValue) {
       setValues({
@@ -92,9 +86,14 @@ function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
 
   useEffect(() => {
     if (isOpen) {
-      modalRef.current.showModal();
+      modalRef?.current?.showModal();
     } else {
-      modalRef.current.close();
+      inputs.map((input) => {
+        setFieldError(input.name, "");
+        touched[input.name] = false;
+      });
+
+      modalRef?.current?.close();
     }
   }, [isOpen]);
 
