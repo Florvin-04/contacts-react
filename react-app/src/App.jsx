@@ -9,11 +9,19 @@ import { tableHead } from "./sampleData";
 
 function App() {
   const { contactList } = useSelector((state) => state.contact);
+
+  // open the form using the add contact button
   const [isOpen, setIsOpen] = useState(false);
 
   const openModalAddContact = () => {
     setIsOpen(true);
   };
+
+  // onChange validation on field form will only occur when the input field is already validated
+
+  // if the user types for the first time, the field will not validate the input
+  // if the user gets out if the field or submit the form thats the only time the validation is performed
+  // and also after that onChange validation will also be triggered
 
   return (
     <div className="app">
@@ -35,6 +43,7 @@ function App() {
             {tableHead.map((header, idx) => {
               return (
                 <th
+                  // only the last field in the table header will span in 2
                   colSpan={idx === tableHead.length - 1 ? "2" : "1"}
                   key={idx}
                 >

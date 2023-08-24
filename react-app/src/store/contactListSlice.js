@@ -7,7 +7,7 @@ const initialState = {
       firstName: "John",
       middleName: "Doe",
       lastName: "Smith",
-      mobileNumber: "123-456-7890",
+      mobileNumber: "23145617890",
       emailAddress: "john@example.com",
     },
     {
@@ -15,7 +15,7 @@ const initialState = {
       firstName: "Jane",
       middleName: "Mary",
       lastName: "Johnson",
-      mobileNumber: "987-654-3210",
+      mobileNumber: "87165413210",
       emailAddress: "jane@example.com",
     },
     {
@@ -23,7 +23,7 @@ const initialState = {
       firstName: "Michael",
       middleName: "Robert",
       lastName: "Williams",
-      mobileNumber: "555-123-4567",
+      mobileNumber: "55112314567",
       emailAddress: "michael@example.com",
     },
     {
@@ -31,7 +31,7 @@ const initialState = {
       firstName: "Emily",
       middleName: "Anne",
       lastName: "Davis",
-      mobileNumber: "789-456-1230",
+      mobileNumber: "89145611230",
       emailAddress: "emily@example.com",
     },
     {
@@ -39,7 +39,7 @@ const initialState = {
       firstName: "William",
       middleName: "Henry",
       lastName: "Miller",
-      mobileNumber: "111-222-3333",
+      mobileNumber: "11122213333",
       emailAddress: "william@example.com",
     },
   ],

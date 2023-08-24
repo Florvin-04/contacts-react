@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import "./AddContact.css";
 
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import * as yup from "yup";
 
 import { useDispatch } from "react-redux";
 import { addContact, editContact } from "../store/contactListSlice";
@@ -11,17 +11,38 @@ const inputs = [
   { type: "text", id: "firstName", name: "firstName", label: "First Name" },
   { type: "text", id: "middleName", name: "middleName", label: "Middle Name" },
   { type: "text", id: "lastName", name: "lastName", label: "Last Name" },
-  { type: "email", id: "emailAddress", name: "emailAddress", label: "Email Address" },
+  { type: "string", id: "emailAddress", name: "emailAddress", label: "Email Address" },
   { type: "text", id: "mobileNumber", name: "mobileNumber", label: "Mobile Number" },
 ];
 
+// regex pattern for 11 digits number only
+const mobileNumberCodeRegex = /^\d{11}$/;
+
+const contactFormSchema = yup.object().shape({
+  firstName: yup.string().required("This Field is Required"),
+  middleName: yup.string().required("This Field is Required"),
+  lastName: yup.string().required("This Field is Required"),
+  emailAddress: yup.string().email("Enter a Valid Email").required("This Field is Required"),
+  mobileNumber: yup
+    .string()
+    .matches(mobileNumberCodeRegex, "Invalid Phone Number")
+    .required("This Field is Required"),
+});
+
 function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
-  console.log("asd", editValue?.firstName);
   const dispacth = useDispatch();
   const modalRef = useRef();
 
   // form handler 'formik'
-  const { values, handleSubmit, handleChange, setValues } = useFormik({
+  const {
+    values,
+    errors,
+    touched,
+    getFieldProps,
+    handleSubmit,
+    handleChange,
+    setValues,
+  } = useFormik({
     // if edit value is true meaning edit button is cliked then the field are automatically field
     initialValues: {
       firstName: "",
@@ -30,6 +51,11 @@ function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
       emailAddress: "",
       mobileNumber: "",
     },
+    validationSchema: contactFormSchema,
+    // validateOnMount: true,
+    // validateOnChange: true, // Enable validation while typing
+    // validateOnBlur: true, // Enable validation while typing
+
     onSubmit: (values, actions) => {
       // if add contact button is clicked add new value
 
@@ -51,8 +77,7 @@ function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
     },
   });
 
-
-// set the value of field if edit button in 
+  // set the value of field if edit button in
   useEffect(() => {
     if (editValue) {
       setValues({
@@ -89,12 +114,18 @@ function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
             >
               <label htmlFor={input.id}>{input.label}</label>
               <input
+                className={`${errors[input.name] && touched[input.name] && "error-field"}`}
+                placeholder="asd"
                 type={input.type}
-                name={input.name}
-                id={input.id}
-                value={values[input.id]}
-                onChange={handleChange}
+                // name={input.name}
+                // id={input.id}
+                // value={values[input.id]}
+                // onChange={handleChange}
+                {...getFieldProps(input.id)}
               />
+              {errors[input.name] && touched[input.name] && (
+                <p className="error-field-message">{errors[input.name]}</p>
+              )}
             </div>
           );
         })}
