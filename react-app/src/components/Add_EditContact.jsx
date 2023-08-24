@@ -114,7 +114,7 @@ function Add_EditContact({ state, isOpen, title, setIsOpen, editValue }) {
               <label htmlFor={input.id}>{input.label}</label>
               <input
                 className={`${errors[input.name] && touched[input.name] && "error-field"}`}
-                placeholder="asd"
+                placeholder={input.label}
                 type={input.type}
                 // name={input.name}
                 // id={input.id}
